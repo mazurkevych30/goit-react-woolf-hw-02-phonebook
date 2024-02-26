@@ -24,27 +24,25 @@ class App extends Component {
       alert(`${data.name} is already in contacts.`);
       return;
     }
-    const id = nanoid();
-    this.setState(prev => ({ contacts: [...prev.contacts, { id, ...data }] }));
+    this.setState(prev => ({
+      contacts: [...prev.contacts, { id: nanoid(), ...data }],
+    }));
   };
 
   handleFilter = ({ target: { name, value } }) => {
     this.setState(prev => ({ contacts: prev.contacts, [name]: value }));
-    console.log(this.state);
   };
 
   handleDelete = id => {
-    console.log(id);
     this.setState(prev => ({
       contacts: prev.contacts.filter(contact => contact.id !== id),
     }));
   };
 
   findContact = () => {
-    const matchContacts = this.state.contacts.filter(({ name }) =>
+    return this.state.contacts.filter(({ name }) =>
       name.toLowerCase().includes(this.state.filter.toLocaleLowerCase())
     );
-    return matchContacts;
   };
 
   render() {
